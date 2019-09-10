@@ -27,6 +27,7 @@
         "jquery": "^3.4.0",
         "jshint-stylish": "^2.2.1",
         "json-formatter-js": "^2.2.1",
+        "lodash": "^4.17.12",
         "material-design-icons": "2.2.3",
         "newman": "^4.5.1",
         "newman-reporter-html": "^1.0.3",
@@ -37,6 +38,7 @@
         "perfect-scrollbar": "^1.4.0",
         "popper.js": "^1.15.0",
         "postcss-selector-lint": "^1.0.0",
+        "remarkable": "^2.0.0",
         "underscore.string": "^3.3.5"
     },
     "devDependencies": {
