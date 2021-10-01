@@ -26,6 +26,7 @@
         "clipboard": "^2.0.4",
         "font-awesome": "^4.6.3",
         "gulp-hub": "^4.2.0",
+        "has-symbols": "^1.0.2",
         "jquery": "^3.5.0",
         "jshint-stylish": "^2.2.1",
         "json-formatter-js": "^2.2.1",
