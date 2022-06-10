@@ -181,7 +181,7 @@ class ScenarioCaseCollection(models.Model):
             return
 
         try:
-            response = requests.get(self.oas_link)
+            response = requests.get(self.oas_link, timeout=60)
         except requests.exceptions.ConnectionError as e:
             raise ValidationError({'oas_link': _("The URL did not resolve")})
 
@@ -222,7 +222,7 @@ def create_cases_from_oas(sender, instance, **kwargs):
     if not instance.oas_link or instance.scenariocase_set.exists():
         return
 
-    content = requests.get(instance.oas_link).content
+    content = requests.get(instance.oas_link, timeout=60).content
 
     # Translate yaml to Python dict if needed
     if instance.oas_link.endswith('.yaml'):

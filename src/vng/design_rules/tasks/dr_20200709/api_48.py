@@ -39,13 +39,13 @@ def run_20200709_api_48(session, api_endpoint):
             for method, _oparations in _methods.items():
                 # print(method)
                 if method == "get":
-                    response = requests.get("{}{}/".format(api_endpoint, path), verify=False)
+                    response = requests.get("{}{}/".format(api_endpoint, path), verify=False, timeout=60)
                 elif method == "post":
-                    response = requests.post("{}{}/".format(api_endpoint, path), verify=False)
+                    response = requests.post("{}{}/".format(api_endpoint, path), verify=False, timeout=60)
                 elif method == "put":
-                    response = requests.put("{}{}/".format(api_endpoint, path), verify=False)
+                    response = requests.put("{}{}/".format(api_endpoint, path), verify=False, timeout=60)
                 elif method == "delete":
-                    response = requests.delete("{}{}/".format(api_endpoint, path), verify=False)
+                    response = requests.delete("{}{}/".format(api_endpoint, path), verify=False, timeout=60)
                 else:
                     response = None
 

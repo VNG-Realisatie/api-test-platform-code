@@ -28,13 +28,12 @@ def run_20200709_api_51(session, response, correct_location=False, is_json=False
         result.save()
         return result
 
-    warnings = []
     errors = []
     if not correct_location:
         errors.append(_("The OAS file was not found at /openapi.json or at /openapi.yaml"))
 
     if not is_json:
-        warnings.append(_("The API did not give a valid JSON output. It most likely was YAML"))
+        errors.append(_("The API did not give a valid JSON output. It most likely was YAML"))
 
     cors_headers = response.headers.get("Access-Control-Allow-Origin")
     if cors_headers:
@@ -48,9 +47,6 @@ def run_20200709_api_51(session, response, correct_location=False, is_json=False
     if errors:
         result.success = False
         result.errors = errors
-    if warnings:
-        result.success = False
-        result.warnings = warnings
 
     result.save()
     return result
