@@ -64,7 +64,7 @@
         "gulp-postcss": "^8.0.0",
         "gulp-sourcemaps": "^2.6.5",
         "istanbul-instrumenter-loader": "^1.0.0",
-        "jsdom": "^13.1.0",
+        "jsdom": "^16.5.0",
         "jsdom-global": "^3.0.2",
         "jshint": "^2.9.3",
         "jshint-stylish": "^2.2.1",
