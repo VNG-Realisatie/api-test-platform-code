@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from celery.utils.log import get_task_logger
+from celery import chord, chain
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
@@ -28,8 +29,8 @@ logger = get_task_logger(__name__)
 @app.task
 def execute_test_scheduled():
     scheduled_scenarios = ScheduledTestScenario.objects.filter(active=True)
-    test_results = {user_id: [] for user_id in scheduled_scenarios.values_list('environment__user', flat=True).distinct('environment__user')}
 
+    signatures = []
     for schedule in scheduled_scenarios:
         environment = schedule.environment
         server_run = ServerRun.objects.create(
@@ -39,12 +40,11 @@ def execute_test_scheduled():
             user=environment.user,
             status=choices.StatusWithScheduledChoices.running
         )
-        execute_test(server_run.pk, scheduled=True)
-        success = server_run.get_execution_result()
-        test_results[environment.user.id].append((server_run, success))
+        signatures.append(execute_test.si(server_run.pk, scheduled=True))
 
-    if test_results:
-        send_email_failure(test_results)
+    server_run_chain = chain(signatures)
+    chord(server_run_chain, send_email_failure_task.s())()
+
 
 def substitute_hidden_vars(server_run, file):
     data = file.read()
@@ -122,11 +122,29 @@ def execute_test(server_run_pk, scheduled=False, email=False):
     if server_run.status != choices.StatusChoices.error_deploy:
         server_run.status = choices.StatusWithScheduledChoices.stopped
     server_run.stopped = timezone.now()
-
-    if email:
-        send_email_failure({server_run.user.id: [(server_run, failure)]})
     server_run.save()
-    return failure
+    if email:
+        send_email_failure([server_run_pk])
+    return server_run_pk
+
+
+def aggregate_test_results(server_runs):
+    results = {}
+    for server_run in server_runs:
+        success = server_run.get_execution_result()
+        results.setdefault(server_run.environment.user.id, [])
+        results[server_run.environment.user.id].append((server_run, success))
+    return results
+
+
+@app.task
+def send_email_failure_task(server_runs_pks):
+    if not server_runs_pks:
+        return
+
+    server_runs = ServerRun.objects.filter(pk__in=server_runs_pks)
+    test_results = aggregate_test_results(server_runs)
+    send_email_failure(test_results)
 
 
 def send_email_failure(test_results):
