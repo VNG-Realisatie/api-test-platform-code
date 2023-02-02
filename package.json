@@ -35,7 +35,7 @@
         "newman-reporter-html": "^1.0.5",
         "newman-reporter-htmlextra": "^1.22.9",
         "normalize.css": "^4.0.0",
-        "npm": "^6.14.15",
+        "npm": "^9.4.1",
         "npm-audit-resolver": "^1.5.0",
         "openapi-to-postmanv2": "^1.2.7",
         "perfect-scrollbar": "^1.4.0",
