@@ -44,12 +44,12 @@ development machine.
 
    .. code-block:: bash
 
-       $ git clone git@bitbucket.org:maykinmedia/vng.git
-       $ cd vng
+       $ git clone git@github.com:VNG-Realisatie/api-test-platform-code.git
+       $ cd api-test-platform-code
 
 3. Install all required libraries.
    **Tip:** You can use the ``bootstrap.py`` script to install the requiments
-   and set the proper settings in ``manage.py``. Or, perform the steps 
+   and set the proper settings in ``manage.py``. Or, perform the steps
    manually:
 
    .. code-block:: bash
@@ -149,11 +149,11 @@ The easiest way to get the project started is by using `Docker Compose`_.
 
    .. code-block:: bash
 
-       $ git clone git@bitbucket.org:maykinmedia/vng.git
-       Cloning into 'vng'...
+       $ git clone git@github.com:VNG-Realisatie/api-test-platform-code.git
+       Cloning into 'api-test-platform-code'...
        ...
 
-       $ cd vng
+       $ cd api-test-platform-code
 
 2. Start the database and web services:
 

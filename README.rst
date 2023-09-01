@@ -3,7 +3,7 @@ vng
 ==================
 
 :Version: 0.1.0
-:Source: https://bitbucket.org/maykinmedia/vng
+:Source: https://github.com/VNG-Realisatie/api-test-platform-code
 :Keywords: ``<keywords>``
 :PythonVersion: 3.6
 
