@@ -11,8 +11,8 @@ Quick start
 
 #. Get the code::
 
-    $ git clone git@bitbucket.org:maykinmedia/vng.git
-    $ cd vng
+    $ git clone git@github.com:VNG-Realisatie/api-test-platform-code.git
+    $ cd api-test-platform-code
 
 #. Bootstrap the virtual environment and install all required libraries. The
    ``bootstrap.py`` script basically sets the proper Django settings file to be
